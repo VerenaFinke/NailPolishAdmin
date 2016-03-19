@@ -1,4 +1,3 @@
-
 <?php
 class Brand {
     private $mysqli;
@@ -7,7 +6,11 @@ class Brand {
     public $name;
 
     public function __construct($id = null) {
-        $this->mysqli = new mysqli("", "root", "rooter");
+        $servername = "127.0.0.1";
+        $username = "root";
+        $password = "";
+        
+        $this->mysqli = new mysqli($servername, $username, $password);
         $this->mysqli->select_db("nailPolishAdmin");
         if ($this->mysqli->connect_error) {
             die("Connection failed: " . $this->mysqli->connect_error);
@@ -16,8 +19,26 @@ class Brand {
             $this->load($id);
         }
     }
-
-    public function save() { 
+    
+    private function isDuplicate() {
+        $sql = " SELECT id FROM brand WHERE name LIKE '" . $this->name . "' ";
+        if ($this->id > 0) {
+            $sql .= " AND id != " . $this->id . "";
+        }
+        $res = $this->mysqli->query($sql);
+        if ($res->num_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }      
+    }
+    
+    public function save() {
+        if ($this->isDuplicate()) {
+            echo("Diesen Hersteller gibt es schon");
+            return;
+        }
+         
         if ($this->id > 0) {
             $sql = " UPDATE brand SET name = '". $this->name . "' WHERE id = ".  $this->id ."";
         } else {
@@ -36,7 +57,7 @@ class Brand {
         $sql = " DELETE FROM brand WHERE id = ". $this->id . "";
         $res = $this->mysqli->query($sql);
         if ($res == true) {
-            return "Erfolgreich gelöscht";
+            echo "Erfolgreich gelöscht";
         } else {
             return $this->mysqli->error;
         }
@@ -52,5 +73,15 @@ class Brand {
             $this->id = $dsatz["id"];
             $this->name = $dsatz["name"];
         }     
+    }
+    
+    public function loadAll() {
+        $sql = " SELECT id FROM brand";
+        $res = $this->mysqli->query($sql);
+        
+        while($row = $res->fetch_assoc()) {
+            $brands[] = new Brand($row["id"]);
+        }
+        return $brands;
     }
 }  
