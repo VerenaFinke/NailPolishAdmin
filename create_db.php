@@ -1,18 +1,18 @@
 <?php
-    $servername = "127.0.0.1";
-    $username = "root";
-    $password = ""; 
-    
-    $connection = new mysqli($servername, $username, $password);
-    if ($connection->connect_error) {
-        die ("Connection failed: " . $connection->connect_error);
-    }
-    
-    $sql = "CREATE DATABASE nailPolishAdmin";
-    if ($connection->query($sql) === TRUE) {
-        echo "Database created successfully";
-    }
-    else {
-        "Error creating database: " . $connection->error;
-    }
-?> 
+$servername = "127.0.0.1";
+$username = "root";
+$password = "";
+
+$connection = mysqli_connect($servername, $username, $password);
+if (!$connection) {
+    die("Verbindung fehlgeschlagen: " . mysqli_connect_error());
+}
+
+$sql = " CREATE DATABASE nailPolishAdmin ";
+if (mysqli_query($connection, $sql)) {
+    echo "Datenbank erfolgreich erstellt<br>";
+} else {
+    echo "Fehler bei der Datenbankerstellung: " . mysqli_error($connection);
+}
+
+mysqli_close($connection);
