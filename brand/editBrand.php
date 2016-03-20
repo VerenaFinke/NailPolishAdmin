@@ -11,7 +11,7 @@ if (!$connection) {
 mysqli_select_db($connection, "brand");
 
 if (isset($_POST["sent"])) {
-    if ($id > 0) {
+    if ($_POST["id"] > 0) {
         $sql = " UPDATE brand SET" . " name = '" . $_POST["name"] . "'" .  "WHERE id = " . $_POST["id"] . "";
     } else {
         $sql = " INSERT INTO brand (name) value ('" . $_POST["name"] . "')";
@@ -19,9 +19,9 @@ if (isset($_POST["sent"])) {
     mysqli_query($connection, $sql);
     $num = mysqli_affected_rows($connection);
         if ($num > 0) {
-            echo $num . "Datensatz betroffen";
+            echo $num . "Datensatz betroffen<br>";
         } else {
-            echo "Kein Datensatz betroffen";
+            echo "Kein Datensatz betroffen<br>";
         }
 } else {
     $id = "";
@@ -42,3 +42,4 @@ if (isset($_POST["sent"])) {
         <input type="reset"></p>
     </form>
 <?php } ?>
+<a href="showBrand.php">Zurück zur Übersicht</a>

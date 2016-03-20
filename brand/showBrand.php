@@ -22,12 +22,12 @@ $results = mysqli_query($connection, " SELECT * FROM brand ");
         </tr>
     </thead>
     <tbody>
-        <?php while($dsatz = mysqli_fetch_assoc($res)) { ?>
+        <?php while($dsatz = mysqli_fetch_assoc($results)) { ?>
         <tr>
             <td><?php echo $dsatz["id"]; ?></td>
             <td><?php echo $dsatz["name"]; ?></td>
-            <td><a href="editBrand.php?id=<?php echo $dastz['id'] ?>">Bearbeiten</td>
-            <td><a href="deleteBrand.php?id=<?php echo $dastz['id'] ?>">Löschen</td>
+            <td><a href="editBrand.php?id=<?php echo $dsatz['id'] ?>">Bearbeiten</td>
+            <td><a href="deleteBrand.php?id=<?php echo $dsatz['id'] ?>">Löschen</td>
         </tr>
         <?php } ?>
     </tbody>
