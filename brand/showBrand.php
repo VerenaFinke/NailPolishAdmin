@@ -1,4 +1,6 @@
 <?php
+require_once("include/header.php");
+
 $servername = "127.0.0.1";
 $username = "root";
 $password = "";
@@ -32,3 +34,4 @@ $results = mysqli_query($connection, " SELECT * FROM brand ");
         <?php } ?>
     </tbody>
 </table>
+<?php include_once("include/footer.php"); ?>

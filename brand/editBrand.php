@@ -1,4 +1,6 @@
 <?php
+require_once("include/header.php");
+
 $servername = "127.0.0.1";
 $username = "root";
 $password = "";
@@ -42,4 +44,5 @@ if (isset($_POST["sent"])) {
         <input type="reset"></p>
     </form>
 <?php } ?>
-<a href="showBrand.php">Zurück zur Übersicht</a>
+<p><a href="showBrand.php">Zurück zur Übersicht</a></p>
+<?php include_once("include/footer.php"); ?>
