@@ -12,19 +12,37 @@ if (!$connection) {
 }
 mysqli_select_db($connection, "brand");
 
-if (isset($_POST["sent"])) {
-    if ($_POST["id"] > 0) {
-        $sql = " UPDATE brand SET" . " name = '" . $_POST["name"] . "'" .  "WHERE id = " . $_POST["id"] . "";
-    } else {
-        $sql = " INSERT INTO brand (name) value ('" . $_POST["name"] . "')";
+function isDuplicated($connection, $id, $name) {
+    $sql = "SELECT id FROM brand WHERE name LIKE '" . $name . "'";
+    if ($id > 0) {
+        $sql .= " AND id != '" . $id . "'";
     }
-    mysqli_query($connection, $sql);
-    $num = mysqli_affected_rows($connection);
+    $result = mysqli_query($connection, $sql);
+    $num = mysqli_num_rows($result);
+    if ($num > 0) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
+if (isset($_POST["sent"])) { 
+    if ( isDuplicated($connection, $_POST["id"], $_POST["name"]) ) {
+        echo "Diesen Hersteller gibt es schon";   
+    } else {
+        if ($_POST["id"] > 0) {
+            $sql = " UPDATE brand SET" . " name = '" . $_POST["name"] . "'" .  "WHERE id = " . $_POST["id"] . "";
+        } else {
+            $sql = " INSERT INTO brand (name) value ('" . $_POST["name"] . "')";
+        }
+        mysqli_query($connection, $sql);
+        $num = mysqli_affected_rows($connection);
         if ($num > 0) {
             echo $num . "Datensatz betroffen<br>";
         } else {
             echo "Kein Datensatz betroffen<br>";
         }
+    }
 } else {
     $id = "";
     $name = "";
