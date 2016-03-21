@@ -34,4 +34,5 @@ $results = mysqli_query($connection, " SELECT * FROM brand ");
         <?php } ?>
     </tbody>
 </table>
+<p><a href="editBrand.php">Neuen Hersteller anlegen</a></p>
 <?php require_once("../include/footer.php"); ?>

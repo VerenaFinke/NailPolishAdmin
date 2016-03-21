@@ -62,5 +62,5 @@ if (isset($_POST["sent"])) {
         <input type="reset"></p>
     </form>
 <?php } ?>
-<p><a href="showBrand.php">Zurück zur Übersicht</a></p>
+<p><a href="showBrand.php">Zurück zur Übersicht</a> <a href="editBrand.php">Neuen Hersteller anlegen</a></p>
 <?php require_once("../include/footer.php"); ?>
