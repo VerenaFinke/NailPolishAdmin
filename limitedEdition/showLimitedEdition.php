@@ -19,7 +19,7 @@ $results = mysqli_query($connection, "SELECT * FROM limitedEdition ");
         <tr>
             <th>ID</th>
             <th>limited Edition</th>
-            <th>Hersteller</th>
+            <th>Hersteller ID</th>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +27,7 @@ $results = mysqli_query($connection, "SELECT * FROM limitedEdition ");
             <tr>
                 <td><?php echo $dsatz["id"]; ?></td>
                 <td><?php echo $dsatz["name"]; ?></td>
-                <td><?php echo $dsatz["brand"]; ?></td>
+                <td><?php echo $dsatz["brandId"]; ?></td>
                 <td><a href="editLimitedEdition.php?id=<?php echo $dsatz['id'] ?>">Bearteiten</a></td>
                 <td><a href="deleteLimitedEdition.php?id=<?php echo $dsatz['id'] ?>">Löschen</a></td>
             </tr>
