@@ -29,10 +29,10 @@ $results = mysqli_query($connection, " SELECT * FROM nailPolish ");
         <tr>
             <td><?php echo $dsatz["id"] ?></td>
             <td><?php echo $dsatz["name"] ?></td>
-            <td><?php echo $dastz["brandId"] ?></td>
+            <td><?php echo $dsatz["brandId"] ?></td>
             <td><?php echo $dsatz["limitedEditionId"] ?></td>
-            <td><a href="editNailPolish.php">Bearbeiten</a></td>
-            <td><a href="deleteNailPolish.php">Löschen</a></td>
+            <td><a href="editNailPolish.php?id=<?php echo $dsatz["id"] ?>">Bearbeiten</a></td>
+            <td><a href="deleteNailPolish.php?id=<?php echo $dsatz["id"] ?>">Löschen</a></td>
         </tr>
         <?php } ?>
     </tbody>
