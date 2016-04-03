@@ -46,7 +46,6 @@ if (isset($_POST["sent"])) {
             }    
         } else {
             $sql = " INSERT INTO limitedEdition(name, brandId) values ('" . $_POST["name"] . "', " . $_POST["brandId"] . ")";
-                
             mysqli_query($connection, $sql);
             $num = mysqli_affected_rows($connection);
             if ($num > 0) {
@@ -60,6 +59,7 @@ if (isset($_POST["sent"])) {
     $id = "";
     $name = "";
     $brandId = "";
+    $brands = array();
     
     if (isset($_GET["id"])) {
         $sql = " SELECT * FROM limitedEdition WHERE id = '" . $_GET["id"] . "'";
@@ -68,12 +68,23 @@ if (isset($_POST["sent"])) {
         $id = $dsatz["id"];
         $name = $dsatz["name"];
         $brandId = $dsatz["brandId"];
-    } 
+    } else {
+        $sql = "SELECT * FROM brand";
+        $results = mysqli_query($connection, $sql);
+
+        while($dsatz = mysqli_fetch_assoc($results)) {
+            $brands[] = $dsatz;
+        }   
+    }
 ?>
     <form action ="editLimitedEdition.php" method="POST">
         <p><input type="hidden" name="id" value="<?php echo $id ?>"></p>
         <p><input type="text" name="name" value="<?php echo $name ?>">Name der limited Edition</p>
-        <P><input type="text" name="brandId" value="<?php echo $brandId ?>">Hersteller ID</p>
+        <p><select name="brandId">
+            <?php foreach($brands as $brandId) { ?>
+                <option value="<?php echo $brandId['id'] ?>"><?php echo $brandId["name"] ?></option>
+            <?php } ?>
+        </select></p>
         <p><button type="submit" name="sent">Speichern</button>
         <input type="reset"></p>
     </form>
